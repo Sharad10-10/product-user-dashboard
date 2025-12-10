@@ -3,17 +3,25 @@ import { MdSearch } from 'react-icons/md'
 import Image from 'next/image'
 import Link from 'next/link'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
+import { fetchUsers } from '@/app/db/data.mjs'
+import Search from '@/app/ui/dashboard/search/Search'
 
-const Users = () => {
+const Users = async({ searchParams }) => {
+
+ const params = await searchParams
+ const q = params?.q
+ console.log(q)
+
+  const getUsers = await fetchUsers(q);
+  
+
+
+
   return (
     <div className='mt-4 bg-[#182237] p-4 rounded-xl'>
        <div className='flex justify-between'>
-          <div className='flex items-center gap-2 bg-[#2e374a] rounded-xl p-1 pl-2'>
-            <MdSearch />
-            <input className='bg-transparent border-none outline-none' type='text' placeholder='Search for a user...'></input>
-          </div>
-
-          <div>
+          <Search placeholder = {"Search for a user"}/>
+        <div>
             <Link href={'./users/add'}><button className='bg-[#2e374a] px-4 py-2 rounded-lg cursor-pointer'>Add New</button></Link>
           </div>
        </div>
@@ -26,23 +34,26 @@ const Users = () => {
             <td>Email</td>
             <td>Created At</td>
             <td>Role</td>
-            <td>Status</td>
+            <td>isActive?</td>
            </tr>
           </thead>
 
-          <tbody>
+          {/* map users to get data  */}
+          {getUsers.map((users)=> {
+            return (
+              <tbody key={users.id}>
             <tr>
             <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
+                <Image className='rounded-4xl' src= {users.img ||'/noavatar.png'} alt='user-image' height={30} width={30} />
+                <span>{users.username}</span>
             </td>
-              <td>Sharad@123</td>
-              <td>2025.12.1</td>
-              <td>Web Developer</td>
-              <td>Active</td>
+              <td>{users.email}</td>
+              <td>{users.createdAt}</td>
+              <td>{users.isAdmin ? "Admin" : "Client"}</td>
+              <td>{users.isActive? "Active" : "Not Active"}</td>
               <td>
                 <div className='flex gap-4'>
-                  <Link href={'./users/test'}>
+                  <Link href={`./users/${users.id}`}>
                     <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
                   </Link>
 
@@ -50,10 +61,10 @@ const Users = () => {
                 </div>
               </td>
               
-                  
-              
             </tr>
           </tbody>
+            )
+          })}
 
           <tbody>
             <tr>
@@ -63,8 +74,8 @@ const Users = () => {
             </td>
               <td>Sharad@123</td>
               <td>2025.12.1</td>
-              <td>Web Developer</td>
-              <td>Status</td>
+              <td>{}</td>
+              <td>{}</td>
               <td>
                 <div className='flex gap-4'>
                   <Link href={'/'}>

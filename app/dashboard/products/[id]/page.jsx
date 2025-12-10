@@ -11,8 +11,6 @@ const SingleProductPage = ()=> {
 
             <div className="flex-3 ">
                 <form className="flex flex-col gap-3">   
-                    <label htmlFor="username">UserName</label>
-                    <input className='outline-none p-2 border rounded-xl border-[#2e374a]'  type="text" name="username" id="username" />
 
                     <label htmlFor="username">Title</label>
                     <input className='outline-none p-2 border rounded-xl border-[#2e374a]' type="text" name="title" id="title" />

@@ -1,18 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MdSearch } from 'react-icons/md'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
+import Search from '@/app/ui/dashboard/search/Search'
 
-const Products = () => {
+
+const Products = async () => {
+  
+
   return (
     <div>
         <div className='mt-4 bg-[#182237] p-4 rounded-xl'>
        <div className='flex justify-between'>
-          <div className='flex items-center gap-2 bg-[#2e374a] rounded-xl p-1 pl-2'>
-            <MdSearch />
-            <input className='bg-transparent border-none outline-none' type='text' placeholder='Search for a product...'></input>
-          </div>
+          <Search placeholder={"Search for a product"}/>
 
           <div>
             <Link href={'./products/add'}><button className='bg-[#2e374a] px-4 py-2 rounded-lg cursor-pointer'>Add New</button></Link>
