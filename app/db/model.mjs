@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const userSchema = new mongoose.Schema({
     username : {
         type: String,
-        required: true,
+        required: [true, "Please provide an username"],
         unique: true,
         min: 3,
         max: 20
@@ -11,13 +11,14 @@ const userSchema = new mongoose.Schema({
 
     email: {
         type: String,
-        required: true,
+        required: [true, "Please provide a valid email"],
         unique: true
     },
 
     password: {
     type: String,
-    required: true},
+    required: [true, "Please provide your password"]
+},
 
     img: {
         type: String
@@ -45,20 +46,20 @@ const userSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema({
     title : {
         type: String,
-        required: true,
+        required: [true, "Please provide title for your product"],
         min: 3,
         max: 20
     },
 
     price: {
         type: String,
-        required: true,
+        required: [true, "Please provide the price"],
         min: 0
     },
 
     description: {
         type: String,
-        required: true
+        required: [true, "Please provide the related description"]
 },
 
     img: {

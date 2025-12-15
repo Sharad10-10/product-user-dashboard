@@ -3,10 +3,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
 import Search from '@/app/ui/dashboard/search/Search'
+import { fetchProducts } from '@/app/db/data.mjs'
+import DeleteProductButton from '@/app/ui/deleteButton/DeleteProductButton'
+import { ToastContainer } from 'react-toastify'
 
 
-const Products = async () => {
-  
+
+const Products = async ({searchParams}) => {
+
+  const params = await searchParams
+  const q = params?.q
+  const page = params?.page
+  // console.log(q, page)
+
+  const {products, count} = await fetchProducts(q, page);
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   return (
     <div>
@@ -32,77 +52,36 @@ const Products = async () => {
            </tr>
           </thead>
 
-          <tbody>
-            <tr>
-            <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
-            </td>
-              <td>Macbook Air</td>
-              <td className='wrap-normal'>A powerful machine for everyday life</td>
-              <td>$1099</td>
-              <td>2025.12.1</td>
-              <td>Available</td>
-              <td>
-                <div className='flex gap-4'>
-                  <Link href={'./products/test'}>
-                    <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
-                  </Link>
+          
+           {products.map((product)=> {
+                return (
+                  <tbody key={product.id}>
+                  <tr>
+                  <td className='flex items-center gap-2 py-3'>
+                      <Image className='rounded-4xl' src= {product?.img || '/noavatar.png'} alt='user-image' height={30} width={30} />
+                  </td>
+                    <td>{product.title}</td>
+                    <td className='wrap-normal'>{product.description}</td>
+                    <td>${product.price}</td>
+                    <td>{formatDate(product?.createdAt)}</td>
+                    <td>{product?.stock}</td>
+                    <td>
+                      <div className='flex gap-4'>
+                        <Link href={`./products/${product.id}`}>
+                          <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
+                        </Link>
 
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
-                </div>
-              </td>       
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
-            </td>
-              <td>Macbook Air</td>
-              <td>A powerful machine for everyday life</td>
-              <td>$1099</td>
-              <td>2025.12.1</td>
-              <td>Available</td>
-              <td>
-                <div className='flex gap-4'>
-                  <Link href={'/'}>
-                    <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
-                  </Link>
-
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
-                </div>
-              </td>       
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
-            </td>
-              <td>Macbook Air</td>
-              <td className='wrap-normal'>A powerful machine for everyday life</td>
-              <td>$1099</td>
-              <td>2025.12.1</td>
-              <td>Available</td>
-              <td>
-                <div className='flex gap-4'>
-                  <Link href={'/'}>
-                    <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
-                  </Link>
-
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
-                </div>
-              </td>       
-            </tr>
-          </tbody>
-
-         
+                        <DeleteProductButton id = {product.id}/>
+                      </div>
+                    </td>       
+                  </tr>
+                </tbody>
+                )
+              })}
         </table>
-
-        <Pagination />
+    
+        <Pagination count = {count}/>
+        <ToastContainer position='top-left'/>
        </div>
 
 

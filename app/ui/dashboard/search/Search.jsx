@@ -12,14 +12,17 @@ const Search = ({placeholder}) => {
 
   const handleSearch = debounce ((e)=> {
     const params = new URLSearchParams(searchParams);
+    params.set("page", 1)
+
     if(e.target.value) {
       params.set("q", e.target.value)
     }
+  
    else {
     params.delete('q')
    }
    replace(`${pathName}?${params}`)
-  }, 300)
+  }, 200)
   
 
 

@@ -5,15 +5,31 @@ import Link from 'next/link'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
 import { fetchUsers } from '@/app/db/data.mjs'
 import Search from '@/app/ui/dashboard/search/Search'
+import DeleteUserButton from '@/app/ui/deleteButton/DeleteUserButton'
+import { ToastContainer } from 'react-toastify'
 
-const Users = async({ searchParams }) => {
+const Users = async({ searchParams}) => {
 
  const params = await searchParams
- const q = params?.q
+ const q = params?.q || ''
+ const page = params?.page || 1
+
+ console.log(page)
  console.log(q)
 
-  const getUsers = await fetchUsers(q);
-  
+  const {users, count} = await fetchUsers(q, page);
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+ 
 
 
 
@@ -38,8 +54,8 @@ const Users = async({ searchParams }) => {
            </tr>
           </thead>
 
-          {/* map users to get data  */}
-          {getUsers.map((users)=> {
+         
+          {users.map((users)=> {
             return (
               <tbody key={users.id}>
             <tr>
@@ -48,7 +64,7 @@ const Users = async({ searchParams }) => {
                 <span>{users.username}</span>
             </td>
               <td>{users.email}</td>
-              <td>{users.createdAt}</td>
+              <td>{formatDate(users.createdAt)}</td>
               <td>{users.isAdmin ? "Admin" : "Client"}</td>
               <td>{users.isActive? "Active" : "Not Active"}</td>
               <td>
@@ -57,7 +73,7 @@ const Users = async({ searchParams }) => {
                     <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
                   </Link>
 
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
+                <DeleteUserButton id = {users.id}/>
                 </div>
               </td>
               
@@ -65,53 +81,10 @@ const Users = async({ searchParams }) => {
           </tbody>
             )
           })}
-
-          <tbody>
-            <tr>
-            <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
-            </td>
-              <td>Sharad@123</td>
-              <td>2025.12.1</td>
-              <td>{}</td>
-              <td>{}</td>
-              <td>
-                <div className='flex gap-4'>
-                  <Link href={'/'}>
-                    <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
-                  </Link>
-
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <td className='flex items-center gap-2 py-3'>
-                <Image className='rounded-4xl' src= '/noavatar.png' alt='user-image' height={30} width={30} />
-                <span>Sharad Ghimire</span>
-            </td>
-              <td>Sharad@123</td>
-              <td>2025.12.1</td>
-              <td>Web Developer</td>
-              <td>Status</td>
-              <td>
-                <div className='flex gap-4'>
-                  <Link href={'/'}>
-                    <button className='bg-green-600 rounded-lg px-2 py-1 cursor-pointer'>View</button>
-                  </Link>
-
-                  <button className='bg-red-600 rounded-lg px-2 py-1 cursor-pointer'>Delete</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
         </table>
 
-        <Pagination />
+        <Pagination  count = {count}/>
+        <ToastContainer position='top-left'/>
        </div>
 
 
