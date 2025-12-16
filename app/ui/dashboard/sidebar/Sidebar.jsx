@@ -9,12 +9,15 @@ import {
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
-  MdLogout,
 } from "react-icons/md";
 import MenuLink from './menuLink/MenuLink';
 import Image from 'next/image';
+import Logout from '../logout/Logout';
+import { useSession } from 'next-auth/react';
+import UserCard from './userCard/UserCard';
 
-const Sidebar = () => {
+
+const Sidebar = async() => {
 
   const menuItems = [
     {
@@ -82,18 +85,7 @@ const Sidebar = () => {
 
   return (
   <div className='sticky top-10'>
-    <div  className='flex items-center gap-5 mb-5'>
-    <div>
-      <Image src='/noavatar.png' alt='' height={50} width={50} className='rounded-4xl object-cover'></Image>
-    </div>
-    <div className='flex flex-col'>
-      <span className='text-xl'>Sharad</span>
-      <span className='text-sm text-[#b7bac1]'>Admin</span>
-    </div>
-
-
-
-    </div>
+    <UserCard />
     <ul className='list-none'>
       {menuItems.map((menuItem)=> {
         return (
@@ -109,10 +101,7 @@ const Sidebar = () => {
       })}
     </ul>
 
-    <div  className='cursor-pointer hover:bg-[#2e374a] flex p-5 items-center gap-2 my-2 rounded-lg'>
-      <MdLogout />
-      <button className='cursor-pointer'> Logout</button>
-    </div>
+      <Logout />
     </div>
   )
 }
