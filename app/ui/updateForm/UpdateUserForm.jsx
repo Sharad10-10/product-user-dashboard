@@ -15,8 +15,8 @@ const UpdateUserForm = ({ users }) => {
         password: users?.password || '',
         phone: users?.phone || '',
         address: users?.address || '',
-        isActive: users?.isActive || '',
-        isAdmin: users?.isAdmin || ''
+        isActive: users?.isActive || true,
+        isAdmin: users?.isAdmin || false
     })
 
     const handleInput = (e)=> {
@@ -32,7 +32,7 @@ const UpdateUserForm = ({ users }) => {
         e.preventDefault()
 
        try {
-        const user = await fetch(`http://localhost:3000/api/users/${id}` || `${process.env.NEXTAUTH_URL}/api/users/${id}` , {
+        const user = await fetch(`/api/users/${id}` , {
             method: "PUT",
             headers: {
                 "Content-Type" : "application/json"
@@ -79,8 +79,8 @@ const UpdateUserForm = ({ users }) => {
 
                     <label htmlFor="isActive">Is Active?</label>
                     <select onChange={handleInput} className='outline-none p-2 border rounded-xl border-[#2e374a]' name="isActive" id="isActive">
-                        <option value={true}>Yes</option>
-                        <option value={false}>No</option>
+                        <option>Yes</option>
+                        <option>No</option>
                     </select>
 
                     <label htmlFor="isAdmin">Is Admin?</label>

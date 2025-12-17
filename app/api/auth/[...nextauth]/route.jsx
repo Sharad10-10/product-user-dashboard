@@ -13,7 +13,7 @@ const authHandler = NextAuth({
             async authorize(credentials) {
                 console.log(credentials)
                 try{
-                   const response = await fetch(`http://localhost:3000/api/login` || `${process.env.AUTHURL}/api/login`, {
+                   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
                     method : "POST",
                     headers: {
                         "Content-Type" : "application/json"
@@ -29,7 +29,7 @@ const authHandler = NextAuth({
 
                    if(response.status === 200) {
                     return {
-                      // id: data.result._id?.toString(),
+                      id: data.result._id?.toString(),
                       username: data?.result?.username,
                       email: data?.result?.email,
                       img: data?.result?.img || "/noavatar.png",
@@ -84,7 +84,7 @@ const authHandler = NextAuth({
     session: {
         strategy: "jwt"
       },
-      secret: process.env.AUTH_SECRET_KEY
+      secret: process.env.NEXTAUTH_SECRET
     
 
 })

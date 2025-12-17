@@ -32,7 +32,7 @@ const AddUserPage = () => {
 
     console.log(formData)
 
-    const response = await fetch("http://localhost:3000/api/users" || `${process.env.NEXTAUTH_URL}/api/users` , {
+    const response = await fetch(`/api/users` , {
       method : "POST",
       headers: {
         "Content-Type" : 'application/json'
@@ -41,6 +41,8 @@ const AddUserPage = () => {
     })
 
     toast.success("User added successfully")
+
+    console.log(response)
 
     if(!response.ok) {
       throw new Error("Failed to create post")

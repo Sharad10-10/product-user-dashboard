@@ -9,7 +9,7 @@ const SingleUserPage = async({params})=> {
    const getUsers = async ()=> {
     try {
         // const response = await fetch(`http://localhost:3000/api/users/${id}`)
-        const response = await fetch(`http://localhost:3000/api/users/${id}` || `${process.env.NEXTAUTH_URL}/api/users/${id}`)
+        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users/${id}`)
         return response
 
     }
@@ -19,6 +19,7 @@ const SingleUserPage = async({params})=> {
    }
 
    const data = await getUsers()
+   console.log(data)
    const {users} = await data.json()
 
 

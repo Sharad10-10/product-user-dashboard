@@ -34,7 +34,7 @@ const UpdateProductForm = ({products})=> {
             e.preventDefault()
     
            try {
-            const user = await fetch( `http://localhost:3000/api/products/${id}` || `${process.env.NEXTAUTH_URL}/api/products/${id}`, {
+            const user = await fetch(`/api/products/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type" : "application/json"

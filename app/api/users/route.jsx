@@ -27,6 +27,7 @@ export const POST = async (request)=> {
     return NextResponse.json({
         success: true,
         message: "New user created successfully",
+        newUser
     }, {status: 201})
    }
    catch (error) {
