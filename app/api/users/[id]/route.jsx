@@ -37,14 +37,9 @@ export const PUT = async(request, {params})=> {
 
     try {
         const body = await request.json()
+        const {username, email, password, isActive, isAdmin, address, phone} = body
         const users = await userModel.findByIdAndUpdate(id, {
-            username : body.username,
-            email: body.email,
-            password: body.password,
-            isActive: body.isActive,
-            isAdmin: body.isAdmin,
-            address: body.address,
-            phone: body.phone
+            username, email, password, isActive, isAdmin, address, phone
         }, {new:true})
 
         return NextResponse.json({

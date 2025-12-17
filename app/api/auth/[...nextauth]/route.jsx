@@ -13,7 +13,7 @@ const authHandler = NextAuth({
             async authorize(credentials) {
                 console.log(credentials)
                 try{
-                   const response = await fetch(`${process.env.AUTH_URL}/api/login`, {
+                   const response = await fetch(`http://localhost:3000/api/login `|| `${process.env.AUTH_URL}/api/login`, {
                     method : "POST",
                     headers: {
                         "Content-Type" : "application/json"
@@ -25,14 +25,15 @@ const authHandler = NextAuth({
                    })
 
                    const data = await response.json()
+                   console.log(data)
 
                    if(response.status === 200) {
                     return {
-                      id: data.result._id?.toString(),
-                      username: data.result.username,
-                      email: data.result.email,
-                      img: data.result.img || "/noavatar.png",
-                      isAdmin: data.result.isAdmin,
+                      // id: data.result._id?.toString(),
+                      username: data?.result?.username,
+                      email: data?.result?.email,
+                      img: data?.result?.img || "/noavatar.png",
+                      isAdmin: data?.result?.isAdmin,
                     };
                    }
                    else {

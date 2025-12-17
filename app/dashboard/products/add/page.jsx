@@ -32,7 +32,7 @@ const AddProductPage = () => {
         
             console.log(formData)
         
-            const response = await fetch("/api/products", {
+            const response = await fetch(`${process.env.NEXT_AUTH_URL}/api/products`|| "/api/products", {
               method : "POST",
               headers: {
                 "Content-Type" : 'application/json'

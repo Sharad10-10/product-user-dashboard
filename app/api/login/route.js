@@ -18,7 +18,7 @@ export const POST = async(request)=>{
         return NextResponse.json({
             message: "Invalid email or password",
             success: false
-        })
+        }, {status: 400})
     }
 
     if (await bcrypt.compare(password, user.password)){

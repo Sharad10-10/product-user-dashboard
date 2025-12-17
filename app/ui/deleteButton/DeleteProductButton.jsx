@@ -9,7 +9,7 @@ const DeleteProductButton = ({id})=> {
 
      const handleDelete = async(id)=> {
        try {
-        const user = await fetch(`http://localhost:3000/api/products/${id}`, {
+        const user = await fetch(`${process.env.NEXT_AUTH_URL}/api/products/${id}` ||`http://localhost:3000/api/products/${id}`, {
             method : "DELETE",
             headers: {
               "Content-Type" : "application/json"

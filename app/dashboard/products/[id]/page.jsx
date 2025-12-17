@@ -8,7 +8,8 @@ const SingleProductPage = async({params})=> {
 
    const getProducts = async ()=> {
     try {
-        const response = await fetch(`http://localhost:3000/api/products/${id}`)
+        // const response = await fetch(`http://localhost:3000/api/products/${id}`)
+        const response = await fetch(`${process.env.NEXT_AUTH_URL}/api/products/${id}` || `api/products/${id}` )
         return response
 
     }

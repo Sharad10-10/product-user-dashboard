@@ -20,7 +20,7 @@ const UserCard = () => {
             </div>
             <div className='flex flex-col'>
             <span className='text-xl'>{session?.user?.username}</span>
-            <span className='text-sm text-[#b7bac1]'>Admin</span>
+            <span className='text-sm text-[#b7bac1]'>{session?.user?.isAdmin ? "Admin" : ""}</span>
             </div>
         </div>
 
