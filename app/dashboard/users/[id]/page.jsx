@@ -9,7 +9,7 @@ const SingleUserPage = async({params})=> {
    const getUsers = async ()=> {
     try {
         // const response = await fetch(`http://localhost:3000/api/users/${id}`)
-        const response = await fetch(`${process.env.NEXT_AUTH_URL}/api/users/${id}` || `http://localhost:3000/api/users/${id}`)
+        const response = await fetch(`http://localhost:3000/api/users/${id}` || `${process.env.NEXT_AUTH_URL}/api/users/${id}`)
         return response
 
     }

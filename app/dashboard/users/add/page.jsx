@@ -32,7 +32,7 @@ const AddUserPage = () => {
 
     console.log(formData)
 
-    const response = await fetch( `${process.env.NEXT_AUTH_URL}/api/users` || "/api/users", {
+    const response = await fetch("http://localhost:3000/api/users" || `${process.env.NEXT_AUTH_URL}/api/users` , {
       method : "POST",
       headers: {
         "Content-Type" : 'application/json'
