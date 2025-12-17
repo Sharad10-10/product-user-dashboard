@@ -13,7 +13,7 @@ const authHandler = NextAuth({
             async authorize(credentials) {
                 console.log(credentials)
                 try{
-                   const response = await fetch(`http://localhost:3000/api/login `|| `${process.env.AUTH_URL}/api/login`, {
+                   const response = await fetch(`http://localhost:3000/api/login` || `${process.env.AUTHURL}/api/login`, {
                     method : "POST",
                     headers: {
                         "Content-Type" : "application/json"

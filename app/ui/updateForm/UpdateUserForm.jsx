@@ -32,7 +32,7 @@ const UpdateUserForm = ({ users }) => {
         e.preventDefault()
 
        try {
-        const user = await fetch(`http://localhost:3000/api/users/${id}` || `${process.env.NEXT_AUTH_URL}/api/users/${id}` , {
+        const user = await fetch(`http://localhost:3000/api/users/${id}` || `${process.env.NEXTAUTH_URL}/api/users/${id}` , {
             method: "PUT",
             headers: {
                 "Content-Type" : "application/json"
