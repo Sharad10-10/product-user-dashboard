@@ -42,10 +42,9 @@ const Login = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
-      <div className="bg-[#182237] flex flex-col gap-4 w-[25%] h-[60%] p-8 pt-10 rounded-xl">
+      <div className="bg-[#182237] flex flex-col gap-4 max-w-100 w-full max-h-130 h-full p-8 pt-10 rounded-xl">
         
       <div>
-          <h1 className="text-center">This is a sample dashboard project.</h1>
           <h1 className="text-center">Please use following credentials to login</h1>
           <p className="text-center font-bold pt-4">Username: user</p>
           <p className="text-center font-bold">Password: password</p>
